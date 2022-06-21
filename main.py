@@ -39,12 +39,14 @@ import csv
 
 # TODO Zla sciezka.
 path = os.getcwd()
-train_annotations_path = os.path.join(path, 'train/annotations/')
-train_images_path = os.path.join(path, 'train/images/')
+upperPath = os.path.abspath(os.path.join(path, os.pardir))
+
+train_annotations_path = upperPath + "/train/annotations/"
+train_images_path = upperPath + "/train/images/"
 train_annotations_files = os.listdir(train_annotations_path)
 train_images_files = os.listdir(train_images_path)
 
-test_images_path = os.path.join(path, 'test/images/')
+test_images_path = upperPath + "/test/images/"
 test_images_files = os.listdir(test_images_path)
 
 
