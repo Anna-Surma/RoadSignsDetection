@@ -20,20 +20,13 @@ import csv
 # TODO [0.80, 0.85) - 3.5
 # TODO [0.85, 1.00) - 4.0
 
-# TODO stderr
 # stderr:
 # Traceback (most recent call last):
-#   File "main.py", line 12, in <module>
-#     train_annotations_files = os.listdir(train_annotations_path)
-# FileNotFoundError: [Errno 2] No such file or directory: '/home/janw/dydaktyka/2021_2022/lato/WdSI wcześniejsze zaliczenie/evaluation/Surma_Anna/train/annotations/'
-
-# stderr:
-# Traceback (most recent call last):
-#   File "main.py", line 215, in <module>
+#   File "main.py", line 238, in <module>
 #     desc_input_tab = extract_input()
-#   File "main.py", line 187, in extract_input
+#   File "main.py", line 210, in extract_input
 #     descriptor = bow.compute(to_gray(sightPart), sift.detect(to_gray(sightPart)))
-#   File "main.py", line 75, in to_gray
+#   File "main.py", line 95, in to_gray
 #     gray = cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
 # cv2.error: OpenCV(4.5.4) /tmp/pip-req-build-th1mncc2/opencv/modules/imgproc/src/color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cvtColor'
 
@@ -90,7 +83,6 @@ def create_train_csv():
                 df = pd.DataFrame(data_xml, columns=col_names)
                 df.to_csv(path + '/X_train.csv', index=False)
 
-
 def to_gray(color_img):
     gray = cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
     return gray
@@ -113,7 +105,7 @@ def BOW():
                 delete_first = 1
             else:
                 image = cv2.imread(train_images_path + row[0])
-                image_part = image[int(row[4]) : int(row[6]), int(row[3]): int(row[5])]
+                image_part = image[int(row[4]): int(row[6]), int(row[3]): int(row[5])]
                 kp, dsc = gen_sift_features(to_gray(image_part))
 
                 if dsc is not None:
@@ -121,14 +113,12 @@ def BOW():
     dictionary = bow.cluster()
     return dictionary
 
-
 def prepere_bow(sift):
     flann = cv2.FlannBasedMatcher_create()
     bow = cv2.BOWImgDescriptorExtractor(sift, flann)
     dictionary = BOW()
     bow.setVocabulary(dictionary)
     return bow
-
 
 def extract_train():
     sift = cv2.SIFT_create()
@@ -155,7 +145,6 @@ def extract_train():
                     train_desc_tab.append(partDicionary)
     return train_desc_tab
 
-
 def train(train_desc_tab):
     types = []
     train_desc = np.empty((1, 100))
@@ -176,7 +165,6 @@ def train(train_desc_tab):
     clf.fit(train_desc[1:], types)
     return clf
 
-
 def create_input_csv():
     data_input = []
     file_nr = int(input())
@@ -185,11 +173,11 @@ def create_input_csv():
         bndbox_nr = int(input())
         for j in range(bndbox_nr):
             # TODO Dane są w formacie xmin, xmax, ymin, ymax.
-            xmin, ymin, xmax, ymax = input().split()
-            l = [filename, xmin, ymin, xmax, ymax]
+            xmin, xmax, ymin, ymax = input().split()
+            l = [filename, xmin, xmax, ymin, ymax]
             data_input.append(l)
 
-    col_names = ['filename', 'x_min', 'y_min', 'x_max', 'y_max']
+    col_names = ['filename', 'x_min', 'x_max', 'x_max', 'y_max']
     df = pd.DataFrame(data_input, columns=col_names)
     df.to_csv(path + '/X_test.csv', index=False)
 
@@ -216,7 +204,6 @@ def extract_input():
                     partDicionary = {'descryptors': np.zeros((1, 100))}
                     desc_input_tab.append(partDicionary)
     return desc_input_tab
-
 
 def predict_im(train_data, desc_input_tab):
     pred_desc_tab = []
