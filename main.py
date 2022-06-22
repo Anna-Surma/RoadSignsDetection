@@ -20,20 +20,13 @@ import csv
 # TODO [0.80, 0.85) - 3.5
 # TODO [0.85, 1.00) - 4.0
 
-# TODO stderr
 # stderr:
 # Traceback (most recent call last):
-#   File "main.py", line 12, in <module>
-#     train_annotations_files = os.listdir(train_annotations_path)
-# FileNotFoundError: [Errno 2] No such file or directory: '/home/janw/dydaktyka/2021_2022/lato/WdSI wcześniejsze zaliczenie/evaluation/Surma_Anna/train/annotations/'
-
-# stderr:
-# Traceback (most recent call last):
-#   File "main.py", line 215, in <module>
+#   File "main.py", line 238, in <module>
 #     desc_input_tab = extract_input()
-#   File "main.py", line 187, in extract_input
+#   File "main.py", line 210, in extract_input
 #     descriptor = bow.compute(to_gray(sightPart), sift.detect(to_gray(sightPart)))
-#   File "main.py", line 75, in to_gray
+#   File "main.py", line 95, in to_gray
 #     gray = cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
 # cv2.error: OpenCV(4.5.4) /tmp/pip-req-build-th1mncc2/opencv/modules/imgproc/src/color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cvtColor'
 
