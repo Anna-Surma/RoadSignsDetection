@@ -9,7 +9,7 @@ import csv
 # TODO Jakość kodu i raport (3/4)
 
 
-# TODO Skuteczność klasyfikacji (0/4)
+# TODO Skuteczność klasyfikacji 0.505 (0.5/4)
 # TODO [0.00, 0.50) - 0.0
 # TODO [0.50, 0.55) - 0.5
 # TODO [0.55, 0.60) - 1.0
@@ -19,16 +19,6 @@ import csv
 # TODO [0.75, 0.80) - 3.0
 # TODO [0.80, 0.85) - 3.5
 # TODO [0.85, 1.00) - 4.0
-
-# stderr:
-# Traceback (most recent call last):
-#   File "main.py", line 238, in <module>
-#     desc_input_tab = extract_input()
-#   File "main.py", line 210, in extract_input
-#     descriptor = bow.compute(to_gray(sightPart), sift.detect(to_gray(sightPart)))
-#   File "main.py", line 95, in to_gray
-#     gray = cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
-# cv2.error: OpenCV(4.5.4) /tmp/pip-req-build-th1mncc2/opencv/modules/imgproc/src/color.cpp:182: error: (-215:Assertion failed) !_src.empty() in function 'cvtColor'
 
 # TODO Zla sciezka.
 path = os.getcwd()
@@ -174,7 +164,9 @@ def create_input_csv():
         for j in range(bndbox_nr):
             # TODO Dane są w formacie xmin, xmax, ymin, ymax.
             xmin, xmax, ymin, ymax = input().split()
-            l = [filename, xmin, xmax, ymin, ymax]
+            # TODO Zamiana kolejności tutaj wymaga też zamiany w linijce 199.
+            # l = [filename, xmin, xmax, ymin, ymax]
+            l = [filename, xmin, ymin, xmax, ymax]
             data_input.append(l)
 
     col_names = ['filename', 'x_min', 'x_max', 'x_max', 'y_max']
