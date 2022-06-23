@@ -178,7 +178,6 @@ def predict_im(train_data, desc_input_tab):
         pred_desc_tab.append(partDicionary)
     return pred_desc_tab
 
-
 if __name__ == '__main__':
     x = input()
 
