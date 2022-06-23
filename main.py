@@ -50,6 +50,7 @@ def create_train_csv():
                 df = pd.DataFrame(data_xml, columns=col_names)
                 df.to_csv(path + '/X_train.csv', index=False)
 
+
 def to_gray(color_img):
     gray = cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
     return gray
